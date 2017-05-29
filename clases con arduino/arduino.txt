@@ -1,0 +1,60 @@
+/*
+  AnalogReadSerial
+  Reads an analog input on pin 0, prints the result to the serial monitor.
+  Graphical representation is available using serial plotter (Tools > Serial Plotter menu)
+  Attach the center pin of a potentiometer to pin A0, and the outside pins to +5V and ground.
+
+  This example code is in the public domain.
+*/
+#include <LiquidCrystal.h>
+//libreria para manejar el lcd
+String option;
+char* p[6] = {"MSJ: "};
+LiquidCrystal lcd(8,9,4,5,6,7);
+//global
+// the setup routine runs once when you press reset:
+void setup() {
+  // initialize serial communication at 9600 bits per second:
+  Serial.begin(9600);
+  lcd.begin(16,2);
+}
+
+// the loop routine runs over and over again forever:
+void loop() {
+/*
+  lcd.setCursor(0,0);
+  lcd.print("Boton: ");
+  lcd.setCursor(0,1);
+  lcd.print(millis()/1000);
+  lcd.setCursor(0,0);
+*/
+  
+  
+  if(Serial.available()>0){
+      option = Serial.readString();
+      lcd.setCursor(0,0);
+      lcd.print(*p+option);
+    }
+   
+  /*
+  // read the input on analog pin 0:
+  int sensorValue = analogRead(A0);
+  // print out the value you read:
+  if(sensorValue>=0&&sensorValue<100){
+      Serial.println("right\n");     
+      lcd.print("right"); 
+    }else if(sensorValue>=110&&sensorValue<=190){
+        Serial.println("up\n");  
+         lcd.print("up   ");
+      }else if(sensorValue>=290&&sensorValue<=360){
+          Serial.println("down\n");
+           lcd.print("down ");
+        }else if(sensorValue>=480&&sensorValue<=530){
+            Serial.println("left\n");
+          }else if(sensorValue>=700&&sensorValue<=780){
+              Serial.println("select\n");
+            }
+            
+  delay(2500);*/ 
+  // delay in between reads for stability
+}
